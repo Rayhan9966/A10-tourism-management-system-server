@@ -5,8 +5,24 @@ const cors =require('cors') ;
 const app =express();
 const port =process.env.PORT || 5000;
 
+const allowedOrigins = ['http://localhost:5173', 'https://travel-tourism-server-k8z4ujrfc-mohammed-rayhan-uddins-projects.vercel.app'];
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+};
+
+app.use(cors(corsOptions));
+
+
+
+
 //midle ware
-app.use(cors());
+// app.use(cors());
 app.use(express.json())
 // console.log(process.env.DB_USER)
 // console.log(process.env.DB_PASS)
